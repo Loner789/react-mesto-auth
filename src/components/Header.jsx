@@ -5,7 +5,7 @@ import UserInfo from "./UserInfo";
 import { Link, useLocation } from "react-router-dom";
 
 // HEADER COMPONENT:
-function Header({ loggedIn, email, onLogout }) {
+function Header({ loggedIn, email, onSignOut }) {
   // Constants
   const location = useLocation();
 
@@ -22,7 +22,7 @@ function Header({ loggedIn, email, onLogout }) {
       <button type='button' className="header__burger-btn"></button>
       </div>
       {loggedIn ? (
-        <UserInfo email={email} loggedIn={loggedIn} onLogout={onLogout} />
+        <UserInfo email={email} loggedIn={loggedIn} onSignOut={onSignOut} />
       ) : (
         <>
           {location.pathname === "/sign-in" ? (
