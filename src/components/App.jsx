@@ -108,17 +108,19 @@ function App() {
         }
 
         localStorage.setItem("jwt", data.token);
+
         setLoggedIn(true);
+        
         console.log(loggedIn);
-        //  history.push("/");
+          // history.push("/");
       })
       .catch((err) => console.log(err));
   }
 
   function handleLogout() {
     localStorage.removeItem("jwt");
-    history.push("/sign-in");
     setLoggedIn(false);
+    history.push("/sign-in");
   }
 
   function handleEditAvatarClick() {
