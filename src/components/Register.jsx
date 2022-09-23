@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import AuthPage from "./AuthPage";
 
+// REGISTER COMPONENT:
 function Register({ onRegister }) {
+  // Constants
   const [state, setState] = useState({
     email: "",
     password: "",
   });
 
+  // Functions
   function handleChange(e) {
     const { name, value } = e.target;
     setState((old) => ({ ...old, [name]: value }));

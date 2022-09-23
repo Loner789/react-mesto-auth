@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// USER-INFO COMPONENT:
 function UserInfo({ loggedIn, email, onLogout }) {
   return (
     <div className="header__user-info">

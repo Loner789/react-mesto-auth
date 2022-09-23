@@ -1,6 +1,7 @@
 // IMPORTS:
 import React from "react";
 
+// INFO-TOOLTIP COMPONENT:
 function InfoTooltip({ isOpen, imgPath, title, onClose }) {
   return (
     <div className={`popup ${isOpen ? "popup_opened" : ""}`}>

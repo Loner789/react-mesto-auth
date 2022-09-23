@@ -2,14 +2,18 @@
 import React, { useState } from "react";
 import AuthPage from "./AuthPage";
 
+// Initial data for state-variable
 const initValues = {
   email: "",
   password: "",
 };
 
+// LOGIN COMPONENT:
 function Login({ onLogin }) {
+  // Constants
   const [state, setState] = useState(initValues);
 
+  // Functions
   function handleChange(e) {
     const { name, value } = e.target;
     setState((old) => ({ ...old, [name]: value }));

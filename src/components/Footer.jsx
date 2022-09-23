@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 // FOOTER COMPONENT:
 function Footer() {
+  // Constants
   const location = useLocation();
 
   return (

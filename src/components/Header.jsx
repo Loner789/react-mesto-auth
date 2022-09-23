@@ -2,10 +2,11 @@
 import React from 'react';
 import logo from "../images/icon_logo.svg";
 import UserInfo from "./UserInfo";
-import { Link, useLocation, withRouter } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // HEADER COMPONENT:
 function Header({ loggedIn, email, onLogout }) {
+  // Constants
   const location = useLocation();
 
   return (
@@ -39,4 +40,4 @@ function Header({ loggedIn, email, onLogout }) {
   );
 }
 
-export default withRouter(Header);
+export default Header;

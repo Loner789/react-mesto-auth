@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
+// AUTH-PAGE COMPONENT:
 function AuthPage({ formName, onSubmit, title, children, btnText }) {
   return (
     <section className="auth-page">
