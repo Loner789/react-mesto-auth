@@ -1,6 +1,6 @@
 # Проект "Mesto<font size = 5>^Russia^</font>"
 
-**_[Cсылка на проект](https://loner789.github.io/mesto-react/)_**
+**_[Cсылка на проект](https://loner789.github.io/react-mesto-auth/)_**
 
 ---
 

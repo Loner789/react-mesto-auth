@@ -16,8 +16,8 @@ import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
 import api from "../utils/api";
 import * as auth from "../utils/auth";
-import accept from "../images/icon_accept-reg.svg";
-import decline from "../images/icon_decline-reg.svg";
+import accept from "../images/icon_accept.svg";
+import decline from "../images/icon_decline.svg";
 
 // BASE COMPONENT OF APPLICATION:
 function App() {
@@ -108,11 +108,7 @@ function App() {
         }
 
         localStorage.setItem("jwt", data.token);
-
         setLoggedIn(true);
-        
-        console.log(loggedIn);
-          // history.push("/");
       })
       .catch((err) => console.log(err));
   }

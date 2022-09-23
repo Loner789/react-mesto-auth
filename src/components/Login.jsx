@@ -22,8 +22,7 @@ function Login({ onLogin }) {
 
     if (!email || !password) return;
 
-    onLogin(email, password)
-      // .then(() => setState(initValues))
+    onLogin(email, password).then(() => setState(initValues))
   }
 
   return (

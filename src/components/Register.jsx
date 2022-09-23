@@ -11,7 +11,6 @@ function Register({ onRegister }) {
   function handleChange(e) {
     const { name, value } = e.target;
     setState((old) => ({ ...old, [name]: value }));
-    console.log(state);
   }
 
   function handleSubmit(e) {
