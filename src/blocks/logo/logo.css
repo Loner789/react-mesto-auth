@@ -1,4 +1,6 @@
 .logo {
+    margin: 0;
+    padding: 0;
     width: 142px;
     height: 33px;
     transition: opacity 0.5s ease-in-out;
@@ -6,6 +8,12 @@
 
 .logo:hover {
     opacity: 0.6;
+}
+
+@media screen and (max-width: 1023px) {
+    .logo {
+        padding-left: 30px;;
+    }
 }
 
 @media screen and (max-width: 767px) {

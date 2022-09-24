@@ -33,6 +33,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
 
   // Side effects:
   useEffect(() => {
@@ -81,6 +82,10 @@ function App() {
   }, [loggedIn]);
 
   // Functions:
+  function handleBurgerButtonClick() {
+    setIsClicked(!isClicked);
+  }
+
   function handleRegister(email, password) {
     return auth
       .register(email, password)
@@ -116,6 +121,7 @@ function App() {
   function handleLogout() {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
+    setIsClicked(false);
     history.push("/sign-in");
   }
 
@@ -200,7 +206,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header loggedIn={loggedIn} email={email} onSignOut={handleLogout} />
+        <Header loggedIn={loggedIn} email={email} onSignOut={handleLogout} onClick={handleBurgerButtonClick} isClicked={isClicked}/>
         <Switch>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <Main
