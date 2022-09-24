@@ -6,22 +6,16 @@ import { useLocation } from "react-router-dom";
 function Footer() {
   // Constants
   const location = useLocation();
+  const isHidden =
+    location.pathname === "/sign-in" || location.pathname === "/sign-up";
 
-  return (
-    <>
-      {location.pathname === "/sign-in" ? (
-        <></>
-      ) : location.pathname === "/sign-up" ? (
-        <></>
-      ) : (
-        <footer className="footer footer_place_mesto">
-          <p className="footer__copyright" lang="en">
-            &copy;&nbsp;2022 Mesto Russia
-          </p>
-        </footer>
-      )}
-    </>
-  );
+  return !isHidden ? (
+    <footer className="footer footer_place_mesto">
+      <p className="footer__copyright" lang="en">
+        &copy;&nbsp;{new Date().getFullYear()} Mesto Russia
+      </p>
+    </footer>
+  ) : null;
 }
 
 export default Footer;

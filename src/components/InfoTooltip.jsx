@@ -17,7 +17,7 @@ function InfoTooltip({ isOpen, imgPath, title, onClose }) {
           type="button"
           className="popup__container-discard"
           onClick={onClose}
-        ></button>
+        />
       </div>
     </div>
   );

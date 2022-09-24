@@ -2,13 +2,10 @@
 import React from "react";
 import logo from "../images/icon_logo.svg";
 import UserInfo from "./UserInfo";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 // HEADER COMPONENT:
 function Header({ loggedIn, email, onSignOut, onClick, isClicked }) {
-  // Constants
-  const location = useLocation();
-
   return (
     <header
       className={`header ${
@@ -16,13 +13,9 @@ function Header({ loggedIn, email, onSignOut, onClick, isClicked }) {
       } header_place_mesto`}
     >
       <div className="header__logo-wrapper">
-        <a href="https://wikiway.com/russia/" target="blank">
-          <img
-            src={logo}
-            alt="Логотип Россия."
-            className="logo"
-          />
-        </a>
+        <Link to="/" target="blank">
+          <img src={logo} alt="Логотип Россия." className="logo" />
+        </Link>
         {loggedIn && (
           <button
             type="button"
@@ -30,29 +23,27 @@ function Header({ loggedIn, email, onSignOut, onClick, isClicked }) {
               isClicked && "header__burger-btn_active"
             }`}
             onClick={onClick}
-          ></button>
+          />
         )}
       </div>
-      {loggedIn ? (
+      <Route exact path="/">
         <UserInfo
           email={email}
           loggedIn={loggedIn}
           onSignOut={onSignOut}
           isClicked={isClicked}
         />
-      ) : (
-        <>
-          {location.pathname === "/sign-in" ? (
-            <Link className="header__link" to="/sign-up">
-              Регистрация
-            </Link>
-          ) : (
-            <Link className="header__link" to="/sign-in">
-              Войти
-            </Link>
-          )}
-        </>
-      )}
+      </Route>
+      <Route path="/sign-in">
+        <Link className="header__link" to="/sign-up">
+          Регистрация
+        </Link>
+      </Route>
+      <Route path="/sign-up">
+        <Link className="header__link" to="/sign-in">
+          Войти
+        </Link>
+      </Route>
     </header>
   );
 }

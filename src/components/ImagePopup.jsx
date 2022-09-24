@@ -20,7 +20,7 @@ function ImagePopup({ card, onClose }) {
           id="image-popup-discard-button"
           aria-label="Закрыть окно."
           onClick={onClose}
-        ></button>
+        />
       </div>
     </div>
   );

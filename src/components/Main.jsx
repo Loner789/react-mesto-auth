@@ -32,7 +32,7 @@ function Main({
               className="profile__edit-button"
               aria-label="Редактировать профиль."
               onClick={onEditProfile}
-            ></button>
+            />
           </div>
           <p className="profile__subtitle">{currentUser.about}</p>
         </div>
@@ -41,7 +41,7 @@ function Main({
           className="profile__add-button"
           aria-label="Добавить фото."
           onClick={onAddPlace}
-        ></button>
+        />
       </section>
       <section
         className="places places_place_mesto"

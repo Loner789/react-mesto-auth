@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 // EDIT-AVATAR-POPUP COMPONENT:
-function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+function EditAvatarPopup({ isLoading, isOpen, onClose, onUpdateAvatar }) {
   // Ref-variables
   const avatarRef = useRef(null);
 
@@ -28,7 +28,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText="Сохранить"
+      buttonText={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <label className="popup__container-field">
         <input

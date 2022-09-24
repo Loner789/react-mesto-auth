@@ -30,7 +30,7 @@ function PopupWithForm({
           // id="profile-form-reset-button"
           aria-label="Закрыть окно."
           onClick={onClose}
-        ></button>
+        />
       </form>
     </div>
   );

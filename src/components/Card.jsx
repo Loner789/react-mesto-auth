@@ -43,7 +43,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             className={cardLikeButtonClassName}
             onClick={handleLikeClick}
             aria-label="Поставить лайк."
-          ></button>
+          />
           <p className="place__likes-counter">{card.likes.length}</p>
         </div>
       </div>
@@ -52,7 +52,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
         className={cardDeleteButtonClassName}
         onClick={handleDeleteClick}
         aria-label="Удалить карточку."
-      ></button>
+      />
     </article>
   );
 }

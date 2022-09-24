@@ -34,6 +34,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const isOpen =
+    isEditAvatarPopupOpen ||
+    isEditProfilePopupOpen ||
+    isAddPlacePopupOpen ||
+    isInfoTooltipPopupOpen ||
+    selectedCard;
 
   // Side effects:
   useEffect(() => {
@@ -44,11 +51,7 @@ function App() {
           setCurrentUser(data);
         })
         .catch((err) => console.log(err));
-    }
-  }, [loggedIn]);
 
-  useEffect(() => {
-    if (loggedIn) {
       api
         .getInitialCards()
         .then((cards) => setCards(cards))
@@ -58,9 +61,9 @@ function App() {
 
   useEffect(() => {
     function checkToken() {
-      if (!localStorage.getItem("jwt")) return;
-
       const jwt = localStorage.getItem("jwt");
+
+      if (!jwt) return;
 
       auth
         .getContent(jwt)
@@ -80,6 +83,21 @@ function App() {
 
     history.push("/");
   }, [loggedIn]);
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === "Escape") {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("keydown", closeByEscape);
+
+      return () => {
+        document.removeEventListener("keydown", closeByEscape);
+      };
+    }
+  }, [isOpen]);
 
   // Functions:
   function handleBurgerButtonClick() {
@@ -112,6 +130,7 @@ function App() {
           return Promise.reject("No data");
         }
 
+        setEmail(email);
         localStorage.setItem("jwt", data.token);
         setLoggedIn(true);
       })
@@ -150,23 +169,33 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    setIsLoading(true);
+
     api
       .setUserInfo(data)
       .then((item) => {
         setCurrentUser(item);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
+
     api
       .setUserAvatar(data)
       .then((item) => {
         setCurrentUser(item);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   function handleCardLike(card) {
@@ -194,19 +223,30 @@ function App() {
   }
 
   function handleAddPlaceSubmit(data) {
+    setIsLoading(true);
+
     api
       .addNewCard(data)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header loggedIn={loggedIn} email={email} onSignOut={handleLogout} onClick={handleBurgerButtonClick} isClicked={isClicked}/>
+        <Header
+          loggedIn={loggedIn}
+          email={email}
+          onSignOut={handleLogout}
+          onClick={handleBurgerButtonClick}
+          isClicked={isClicked}
+        />
         <Switch>
           <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <Main
@@ -236,16 +276,19 @@ function App() {
         imgPath={message.imgPath}
       />
       <EditAvatarPopup
+        isLoading={isLoading}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
       />
       <EditProfilePopup
+        isLoading={isLoading}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
       />
       <AddPlacePopup
+        isLoading={isLoading}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}

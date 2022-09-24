@@ -1,9 +1,9 @@
 // IMPORTS:
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 // ADD-PLACE-POPUP COMPONENT:
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
   // State-variables
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
@@ -35,7 +35,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText="Сохранить"
+      buttonText={isLoading ? "Сохранение..." : "Сохранить"}
     >
       <label className="popup__container-field">
         <input
