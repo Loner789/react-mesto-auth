@@ -1,27 +1,26 @@
-//IMPORTS:
-import React, { useState } from "react";
+// IMPORTS:
+import React from "react";
 import AuthPage from "./AuthPage";
+import { useForm } from "../hooks/useForm";
+
+// Initial data for state-variable
+const initValues = {
+  email: "",
+  password: "",
+};
 
 // REGISTER COMPONENT:
 function Register({ onRegister }) {
   // Constants
-  const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
+  const { values, handleChange, setValues } = useForm(initValues);
 
   // Functions
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setState((old) => ({ ...old, [name]: value }));
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
 
-    const { email, password } = state;
+    const { email, password } = values;
 
-    onRegister(email, password);
+    onRegister(email, password).then(() => setValues(initValues));
   }
 
   return (
@@ -43,7 +42,7 @@ function Register({ onRegister }) {
             minLength="6"
             maxLength="40"
             onChange={handleChange}
-            value={state.email}
+            value={values.email}
           />
           <span className="popup__container-input-error"></span>
         </label>
@@ -59,7 +58,7 @@ function Register({ onRegister }) {
             minLength="6"
             maxLength="40"
             onChange={handleChange}
-            value={state.password}
+            value={values.password}
           />
           <span className="popup__container-input-error"></span>
         </label>

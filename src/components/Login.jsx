@@ -1,6 +1,7 @@
 // IMPORTS:
-import React, { useState } from "react";
+import React from "react";
 import AuthPage from "./AuthPage";
+import { useForm } from "../hooks/useForm";
 
 // Initial data for state-variable
 const initValues = {
@@ -11,22 +12,17 @@ const initValues = {
 // LOGIN COMPONENT:
 function Login({ onLogin }) {
   // Constants
-  const [state, setState] = useState(initValues);
+  const { values, handleChange, setValues } = useForm(initValues);
 
   // Functions
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setState((old) => ({ ...old, [name]: value }));
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
 
-    const { email, password } = state;
+    const { email, password } = values;
 
     if (!email || !password) return;
 
-    onLogin(email, password).then(() => setState(initValues))
+    onLogin(email, password).then(() => setValues(initValues));
   }
 
   return (
@@ -48,7 +44,7 @@ function Login({ onLogin }) {
             minLength="6"
             maxLength="40"
             onChange={handleChange}
-            value={state.email}
+            value={values.email}
           />
           <span className="popup__container-input-error"></span>
         </label>
@@ -64,7 +60,7 @@ function Login({ onLogin }) {
             minLength="6"
             maxLength="40"
             onChange={handleChange}
-            value={state.password}
+            value={values.password}
           />
           <span className="popup__container-input-error"></span>
         </label>
