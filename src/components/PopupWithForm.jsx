@@ -1,5 +1,6 @@
 //IMPORTS:
 import React from "react";
+import Popup from "./Popup";
 
 // COMMON PART FOR ALL POPUPS WITH FORM:
 function PopupWithForm({
@@ -12,7 +13,7 @@ function PopupWithForm({
   onSubmit,
 }) {
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+    <Popup isOpen={isOpen} name={name} onClose={onClose}>
       <form
         action="#"
         className="popup__container"
@@ -24,15 +25,8 @@ function PopupWithForm({
         <button type="submit" className="popup__container-submit">
           {buttonText}
         </button>
-        <button
-          type="button"
-          className="popup__container-discard"
-          // id="profile-form-reset-button"
-          aria-label="Закрыть окно."
-          onClick={onClose}
-        />
       </form>
-    </div>
+    </Popup>
   );
 }
 

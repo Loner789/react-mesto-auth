@@ -1,12 +1,11 @@
 //IMPORTS:
 import React from "react";
+import Popup from "./Popup";
 
 // IMAGE-POPUP COMPONENT:
 function ImagePopup({ card, onClose }) {
   return (
-    <div
-      className={`popup popup_type_image-popup ${card ? "popup_opened" : ""}`}
-    >
+    <Popup isOpen={card} name="image-popup" onClose={onClose}>
       <div className="popup__figure">
         <img
           src={card?.link}
@@ -14,15 +13,8 @@ function ImagePopup({ card, onClose }) {
           className="popup__image"
         />
         <p className="popup__image-caption">{card?.name}</p>
-        <button
-          type="button"
-          className="popup__container-discard"
-          id="image-popup-discard-button"
-          aria-label="Закрыть окно."
-          onClick={onClose}
-        />
       </div>
-    </div>
+    </Popup>
   );
 }
 

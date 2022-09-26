@@ -293,7 +293,6 @@ function App() {
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
       />
-      <PopupWithForm />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </CurrentUserContext.Provider>
   );

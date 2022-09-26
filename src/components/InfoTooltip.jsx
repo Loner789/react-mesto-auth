@@ -1,10 +1,11 @@
 // IMPORTS:
 import React from "react";
+import Popup from "./Popup";
 
 // INFO-TOOLTIP COMPONENT:
 function InfoTooltip({ isOpen, imgPath, title, onClose }) {
   return (
-    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
+    <Popup isOpen={isOpen} name="tooltip" onClose={onClose}>
       <div className="popup__container popup__container_type_tooltip">
         <div
           className="popup__container-img"
@@ -13,13 +14,8 @@ function InfoTooltip({ isOpen, imgPath, title, onClose }) {
         <h2 className="popup__container-title popup__container-title_place_tooltip">
           {title}
         </h2>
-        <button
-          type="button"
-          className="popup__container-discard"
-          onClick={onClose}
-        />
       </div>
-    </div>
+    </Popup>
   );
 }
 
