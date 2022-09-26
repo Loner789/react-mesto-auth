@@ -13,6 +13,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ImagePopup from "./ImagePopup";
+import PopupWithConfirmation from "./PopupWithConfirmation";
 import api from "../utils/api";
 import * as auth from "../utils/auth";
 import accept from "../images/icon_accept.svg";
@@ -29,7 +30,9 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [cardToBeDeleted, setCardToBeDeleted] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
@@ -39,6 +42,7 @@ function App() {
     isEditProfilePopupOpen ||
     isAddPlacePopupOpen ||
     isInfoTooltipPopupOpen ||
+    isConfirmPopupOpen ||
     selectedCard;
 
   // Side effects:
@@ -164,6 +168,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
+    setIsConfirmPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -211,14 +216,25 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    setIsLoading(true);
+
     api
       .deleteCard(card._id)
       .then(() => {
         setCards((state) =>
           state.filter((element) => element._id !== card._id)
         );
+        closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  function handleCardDeleteClick(cardData) {
+    setCardToBeDeleted(cardData);
+    setIsConfirmPopupOpen(true);
   }
 
   function handleAddPlaceSubmit(data) {
@@ -255,7 +271,7 @@ function App() {
               cards={cards}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardDelete={handleCardDeleteClick}
             />
           </ProtectedRoute>
           <Route path="/sign-up">
@@ -293,6 +309,13 @@ function App() {
         onAddPlace={handleAddPlaceSubmit}
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+      <PopupWithConfirmation
+        isOpen={isConfirmPopupOpen}
+        isLoading={isLoading}
+        onClose={closeAllPopups}
+        onSubmit={handleCardDelete}
+        card={cardToBeDeleted}
+      />
     </CurrentUserContext.Provider>
   );
 }

@@ -11,6 +11,7 @@ function PopupWithForm({
   onClose,
   buttonText,
   onSubmit,
+  hasCardToDelete,
 }) {
   return (
     <Popup isOpen={isOpen} name={name} onClose={onClose}>
@@ -20,7 +21,15 @@ function PopupWithForm({
         name={`${name}-form`}
         onSubmit={onSubmit}
       >
-        <h2 className="popup__container-title">{title}</h2>
+        <h2
+          className={`popup__container-title ${
+            hasCardToDelete
+              ? "popup__container-title_place_card-deletion-popup"
+              : ""
+          }`}
+        >
+          {title}
+        </h2>
         {children}
         <button type="submit" className="popup__container-submit">
           {buttonText}
