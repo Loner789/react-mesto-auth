@@ -1,31 +1,22 @@
 // IMPORTS:
 import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
+import useForm from "../hooks/useForm";
 
 // ADD-PLACE-POPUP COMPONENT:
 function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
-  // State-variables
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
+  // Variables
+  const { values, errors, handleChange, setValues } = useForm({});
 
   // Side-effects
   useEffect(() => {
-    setName("");
-    setLink("");
+    setValues({ name: "", link: "" });
   }, [isOpen]);
 
   // Functions
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleLinkChange(e) {
-    setLink(e.target.value);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({ name, link });
+    onAddPlace(values);
   }
 
   return (
@@ -47,10 +38,14 @@ function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
           minLength="2"
           maxLength="30"
           required
-          value={name}
-          onChange={handleNameChange}
+          value={values.name || ""}
+          onChange={handleChange}
         />
-        <span className="card-name-error popup__container-input-error"></span>
+        {errors.name && (
+          <span className="card-name-error popup__container-input-error">
+            {errors.name}
+          </span>
+        )}
       </label>
       <label className="popup__container-field">
         <input
@@ -60,10 +55,14 @@ function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
           id="card-link"
           placeholder="Ссылка на картинку"
           required
-          value={link}
-          onChange={handleLinkChange}
+          value={values.link || ""}
+          onChange={handleChange}
         />
-        <span className="card-link-error popup__container-input-error"></span>
+        {errors.link && (
+          <span className="card-link-error popup__container-input-error">
+            {errors.link}
+          </span>
+        )}
       </label>
     </PopupWithForm>
   );

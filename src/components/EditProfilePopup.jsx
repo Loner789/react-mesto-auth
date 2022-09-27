@@ -1,35 +1,26 @@
 // IMPORTS:
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import useForm from "../hooks/useForm";
 
 // EDIT-PROFILE-POPUP COMPONENT:
 function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
-  // State-variables
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  // Variables
   const currentUser = useContext(CurrentUserContext);
+  const { values, errors, handleChange, setValues, buttonState } = useForm({});
 
   // Side-effects
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setValues(currentUser);
   }, [currentUser, isOpen]);
 
   // Functions
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser({
-      name,
-      about: description,
+      name: values.name,
+      about: values.about,
     });
   }
 
@@ -52,10 +43,14 @@ function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
           minLength="2"
           maxLength="40"
           required
-          value={name || ""}
-          onChange={handleNameChange}
+          value={values.name || ""}
+          onChange={handleChange}
         />
-        <span className="profile-name-error popup__container-input-error"></span>
+        {errors.name && (
+          <span className="profile-name-error popup__container-input-error">
+            {errors.name}
+          </span>
+        )}
       </label>
       <label className="popup__container-field">
         <input
@@ -67,10 +62,14 @@ function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
           minLength="2"
           maxLength="200"
           required
-          value={description || ""}
-          onChange={handleDescriptionChange}
+          value={values.about || ""}
+          onChange={handleChange}
         />
-        <span className="profile-job-error popup__container-input-error"></span>
+        {errors.about && (
+          <span className="profile-job-error popup__container-input-error">
+            {errors.about}
+          </span>
+        )}
       </label>
     </PopupWithForm>
   );

@@ -63,7 +63,6 @@
 @import url(./blocks/popup/__container-input/_invalid/popup__container-input_invalid.css);
 @import url(./blocks/popup/__container-input/_type/popup__container-input_type_login.css);
 @import url(./blocks/popup/__container-input-error/popup__container-input-error.css);
-@import url(./blocks/popup/__container-input-error/_visible/popup__container-input-error_visible.css);
 @import url(./blocks/popup/__container-submit/popup__container-submit.css);
 @import url(./blocks/popup/__container-submit/_disabled/popup__container-submit_disabled.css);
 @import url(./blocks/popup/__container-discard/popup__container-discard.css);

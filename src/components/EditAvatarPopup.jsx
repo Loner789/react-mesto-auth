@@ -1,11 +1,13 @@
 // IMPORTS:
 import React, { useEffect, useRef } from "react";
 import PopupWithForm from "./PopupWithForm";
+import useForm from "../hooks/useForm";
 
 // EDIT-AVATAR-POPUP COMPONENT:
 function EditAvatarPopup({ isLoading, isOpen, onClose, onUpdateAvatar }) {
-  // Ref-variables
+  // Variables
   const avatarRef = useRef(null);
+  const { values, errors, handleChange, buttonState } = useForm({});
 
   // Side-effects
   useEffect(() => {
@@ -38,9 +40,15 @@ function EditAvatarPopup({ isLoading, isOpen, onClose, onUpdateAvatar }) {
           id="avatar-link"
           placeholder="Ссылка на картинку профиля"
           required
+          onChange={handleChange}
+          value={values.avatar || ""}
           ref={avatarRef}
         />
-        <span className="avatar-link-error popup__container-input-error"></span>
+        {errors.avatar && (
+          <span className="avatar-link-error popup__container-input-error">
+            {errors.avatar}
+          </span>
+        )}
       </label>
     </PopupWithForm>
   );
