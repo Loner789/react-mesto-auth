@@ -24,17 +24,14 @@
 ### Техническая информация
 
 - Страница адаптирована под устройства с расширением от 320px до 1280px;
+- В мобильной версии сайта добавлено бургерное меню;
 - При разработке веб-приложения использованы CSS-технологии [grid](https://developer.mozilla.org/ru/docs/Web/CSS/CSS_Grid_Layout/Basic_Concepts_of_Grid_Layout) и [flex](https://developer.mozilla.org/ru/docs/Learn/CSS/CSS_layout/Flexbox), поддерживаемые большинством современных браузеров в последней версии;
 - При разработке веб-приложения использован язык программирования [JavaScript](https://ru.wikipedia.org/wiki/JavaScript);
 - Файловая структура: [БЭМ Nested](https://ru.bem.info/methodology/filestructure/#nested);
 - Проект реализован при помощи JavaScript-библиотеки [React](https://reactjs.org/);
 - Настройка проекта выполнена при помощи [Create React App](https://reactdev.ru/libs/cra/);
-- Настроена аутентификация пользователя.
-
----
-
-### Планы по доработке
-- Настройка валидации форм;
+- Настроена аутентификация пользователя;
+- Настроена валидации форм.
 
 ---
 
