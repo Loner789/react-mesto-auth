@@ -32,6 +32,9 @@ function Login({ onLogin }) {
         onSubmit={handleSubmit}
         title="Вход"
         btnText="Войти"
+        isValid={
+          !(errors.email || errors.password) && values.email && values.password
+        }
       >
         <label className="popup__container-field">
           <input
@@ -40,9 +43,6 @@ function Login({ onLogin }) {
             name="email"
             className="popup__container-input popup__container-input_type_login"
             placeholder="Email"
-            required
-            minLength="6"
-            maxLength="40"
             onChange={handleChange}
             value={values.email}
           />
@@ -58,9 +58,6 @@ function Login({ onLogin }) {
             autoComplete="on"
             className="popup__container-input popup__container-input_type_login"
             placeholder="Пароль"
-            required
-            minLength="6"
-            maxLength="40"
             onChange={handleChange}
             value={values.password}
           />

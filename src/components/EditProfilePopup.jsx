@@ -3,17 +3,24 @@ import React, { useEffect, useContext } from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import useForm from "../hooks/useForm";
+import { omit } from "lodash";
 
 // EDIT-PROFILE-POPUP COMPONENT:
 function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
   // Variables
   const currentUser = useContext(CurrentUserContext);
-  const { values, errors, handleChange, setValues, buttonState } = useForm({});
+  const { values, errors, handleChange, setValues, setErrors } = useForm({});
 
   // Side-effects
   useEffect(() => {
     setValues(currentUser);
   }, [currentUser, isOpen]);
+
+  useEffect(() => {
+    let newObj = omit(errors, "name", "about");
+
+    setErrors(newObj);
+  }, [onClose]);
 
   // Functions
   function handleSubmit(e) {
@@ -32,6 +39,7 @@ function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+      isValid={!(errors.name || errors.about) && values.name && values.about}
     >
       <label className="popup__container-field">
         <input
@@ -40,9 +48,6 @@ function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
           name="name"
           id="profile-name"
           placeholder="Имя"
-          minLength="2"
-          maxLength="40"
-          required
           value={values.name || ""}
           onChange={handleChange}
         />
@@ -59,9 +64,6 @@ function EditProfilePopup({ isLoading, isOpen, onClose, onUpdateUser }) {
           name="about"
           id="profile-job"
           placeholder="Профессия"
-          minLength="2"
-          maxLength="200"
-          required
           value={values.about || ""}
           onChange={handleChange}
         />

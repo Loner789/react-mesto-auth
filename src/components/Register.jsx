@@ -30,6 +30,9 @@ function Register({ onRegister }) {
         onSubmit={handleSubmit}
         title="Регистрация"
         btnText="Зарегистрироваться"
+        isValid={
+          !(errors.email || errors.password) && values.email && values.password
+        }
       >
         <label className="popup__container-field">
           <input
@@ -38,9 +41,6 @@ function Register({ onRegister }) {
             name="email"
             className="popup__container-input popup__container-input_type_login"
             placeholder="Email"
-            required
-            minLength="6"
-            maxLength="40"
             onChange={handleChange}
             value={values.email}
           />
@@ -56,9 +56,6 @@ function Register({ onRegister }) {
             autoComplete="on"
             className="popup__container-input popup__container-input_type_login"
             placeholder="Пароль"
-            required
-            minLength="6"
-            maxLength="40"
             onChange={handleChange}
             value={values.password}
           />

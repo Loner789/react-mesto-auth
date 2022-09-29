@@ -19,6 +19,7 @@ function PopupWithConfirmation({ isOpen, isLoading, onClose, onSubmit, card }) {
       onSubmit={handleSubmit}
       buttonText={isLoading ? "Удаление..." : "Да"}
       hasCardToDelete={card}
+      isValid={true}
     />
   );
 }

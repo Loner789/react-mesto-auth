@@ -6,19 +6,18 @@ import { omit } from "lodash";
 function useForm(inputValues) {
   const [values, setValues] = useState(inputValues);
   const [errors, setErrors] = useState({});
-  // const [buttonState, setButtonState] = useState(true);
 
   const validate = (event, name, value) => {
     // A function to validate each input values
     switch (name) {
       case "name":
-        if (value.length <= 4) {
+        if (value !== "" && value.length <= 4) {
           setErrors({
             ...errors,
-            name: "The field at least have 5 letters",
+            name: "Минимальное количество символов: 5",
           });
         } else {
-          // set the error state empty or remove the error for username input
+          // set the error state empty or remove the error for name input
           // omit function removes/omits the value from given object and returns a new object
           let newObj = omit(errors, "name");
 
@@ -28,10 +27,10 @@ function useForm(inputValues) {
         break;
 
       case "about":
-        if (value.length <= 4) {
+        if (value !== "" && value.length <= 4) {
           setErrors({
             ...errors,
-            about: "The field at least have 5 letters",
+            about: "Минимальное количество символов: 5",
           });
         } else {
           let newObj = omit(errors, "about");
@@ -42,10 +41,13 @@ function useForm(inputValues) {
         break;
 
       case "link":
-        if (!new RegExp(/^(ftp|http|https):\/\/[^ "]+$/).test(value)) {
+        if (
+          value !== "" &&
+          !new RegExp(/^(ftp|http|https):\/\/[^ "]+$/).test(value)
+        ) {
           setErrors({
             ...errors,
-            link: "Enter a valid URL address",
+            link: "Введите корректный URL-адрес",
           });
         } else {
           let newObj = omit(errors, "link");
@@ -56,11 +58,18 @@ function useForm(inputValues) {
         break;
 
       case "avatar":
-        if (!new RegExp(/^(ftp|http|https):\/\/[^ "]+$/).test(value)) {
+        if (
+          value !== "" &&
+          !new RegExp(/^(ftp|http|https):\/\/[^ "]+$/).test(value)
+        ) {
           setErrors({
             ...errors,
-            avatar: "Enter a valid URL address",
+            avatar: "Введите корректный URL-адрес",
           });
+        } else if (value === "") {
+          let newObj = omit(errors, "avatar");
+
+          setErrors(newObj);
         } else {
           let newObj = omit(errors, "avatar");
 
@@ -71,11 +80,15 @@ function useForm(inputValues) {
 
       case "email":
         if (
+          value !== "" &&
           !new RegExp(
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           ).test(value)
         ) {
-          setErrors({ ...errors, email: "Enter a valid email address" });
+          setErrors({
+            ...errors,
+            email: "Введите корректный адрес электронной почты",
+          });
         } else {
           let newObj = omit(errors, "email");
 
@@ -86,12 +99,13 @@ function useForm(inputValues) {
 
       case "password":
         if (
+          value !== "" &&
           !new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/).test(value)
         ) {
           setErrors({
             ...errors,
             password:
-              "Password should contains atleast 8 charaters and containing uppercase, lowercase and numbers",
+              "Пароль должен содержать не менее 8 символов и содержать прописные, строчные буквы и цифры",
           });
         } else {
           let newObj = omit(errors, "password");
@@ -116,7 +130,7 @@ function useForm(inputValues) {
     setValues({ ...values, [name]: value });
   };
 
-  return { values, errors, handleChange, setValues };
+  return { values, errors, handleChange, setValues, setErrors };
 }
 
 export default useForm;

@@ -12,7 +12,9 @@ function PopupWithForm({
   buttonText,
   onSubmit,
   hasCardToDelete,
+  isValid
 }) {
+
   return (
     <Popup isOpen={isOpen} name={name} onClose={onClose}>
       <form
@@ -20,6 +22,7 @@ function PopupWithForm({
         className="popup__container"
         name={`${name}-form`}
         onSubmit={onSubmit}
+        noValidate
       >
         <h2
           className={`popup__container-title ${
@@ -34,6 +37,7 @@ function PopupWithForm({
         <button
           type="submit"
           className="popup__container-submit"
+          disabled={!isValid}
         >
           {buttonText}
         </button>

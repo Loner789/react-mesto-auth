@@ -27,7 +27,7 @@ function Popup({ isOpen, name, onClose, children }) {
   return (
     <div
       className={`popup ${isOpen ? "popup_opened" : ""} popup_type_${name}`}
-      onClick={handleOverlayClick}
+      onMouseDown={handleOverlayClick}
     >
       <div className="popup__container-wrapper">
         {children}

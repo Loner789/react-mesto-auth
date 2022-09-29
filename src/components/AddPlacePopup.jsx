@@ -1,17 +1,24 @@
 // IMPORTS:
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import useForm from "../hooks/useForm";
+import { omit } from "lodash";
 
 // ADD-PLACE-POPUP COMPONENT:
 function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
   // Variables
-  const { values, errors, handleChange, setValues } = useForm({});
+  const { values, errors, handleChange, setValues, setErrors } = useForm({});
 
   // Side-effects
   useEffect(() => {
     setValues({ name: "", link: "" });
   }, [isOpen]);
+
+  useEffect(() => {
+    let newObj = omit(errors, "name", "link");
+
+    setErrors(newObj);
+  }, [onClose]);
 
   // Functions
   function handleSubmit(e) {
@@ -27,6 +34,7 @@ function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={isLoading ? "Сохранение..." : "Сохранить"}
+      isValid={!(errors.name || errors.link) && values.name && values.link}
     >
       <label className="popup__container-field">
         <input
@@ -35,9 +43,6 @@ function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
           name="name"
           id="card-name"
           placeholder="Название"
-          minLength="2"
-          maxLength="30"
-          required
           value={values.name || ""}
           onChange={handleChange}
         />
@@ -54,7 +59,6 @@ function AddPlacePopup({ isLoading, isOpen, onClose, onAddPlace }) {
           name="link"
           id="card-link"
           placeholder="Ссылка на картинку"
-          required
           value={values.link || ""}
           onChange={handleChange}
         />
