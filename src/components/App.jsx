@@ -30,7 +30,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [cardToBeDeleted, setCardToBeDeleted] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
@@ -146,7 +146,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
-    setIsConfirmPopupOpen(false);
+    setIsConfirmationPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -212,7 +212,7 @@ function App() {
 
   function handleCardDeleteClick(cardData) {
     setCardToBeDeleted(cardData);
-    setIsConfirmPopupOpen(true);
+    setIsConfirmationPopupOpen(true);
   }
 
   function handleAddPlaceSubmit(data) {
@@ -288,7 +288,7 @@ function App() {
       />
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       <PopupWithConfirmation
-        isOpen={isConfirmPopupOpen}
+        isOpen={isConfirmationPopupOpen}
         isLoading={isLoading}
         onClose={closeAllPopups}
         onSubmit={handleCardDelete}
