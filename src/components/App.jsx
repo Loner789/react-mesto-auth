@@ -37,13 +37,6 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const isOpen =
-    isEditAvatarPopupOpen ||
-    isEditProfilePopupOpen ||
-    isAddPlacePopupOpen ||
-    isInfoTooltipPopupOpen ||
-    isConfirmPopupOpen ||
-    selectedCard;
 
   // Side effects:
   useEffect(() => {
@@ -86,21 +79,6 @@ function App() {
 
     history.push("/");
   }, [loggedIn]);
-
-  useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === "Escape") {
-        closeAllPopups();
-      }
-    }
-    if (isOpen) {
-      document.addEventListener("keydown", closeByEscape);
-
-      return () => {
-        document.removeEventListener("keydown", closeByEscape);
-      };
-    }
-  }, [isOpen]);
 
   // Functions:
   function handleBurgerButtonClick() {
