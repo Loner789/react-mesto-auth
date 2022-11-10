@@ -72,12 +72,14 @@ function App() {
     }
 
     checkToken();
+  // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (!loggedIn) return;
 
     history.push("/");
+  // eslint-disable-next-line
   }, [loggedIn]);
 
   // Functions:
